@@ -1,0 +1,221 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen Hub | Home</title>
+
+    <!-- Page Icon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/nitlogo.png' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/utilities.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animations.css' %}">
+
+
+    <!-- Sweet Alert Pop Modal -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+
+    <!-- NavBar -->
+    <header class="navbar" id="preview-navbar">
+        <div class="container flex text-center jc-ai-center">
+            <!-- Left Navigation -->
+            <div class="site-title flex align-item-center">
+                <div>
+                    <a href="{% url 'index' %}">
+                        <h1><span class="clr-red">NIT AP</span> <span class="clr-green">Canteen</span></h1>
+                    </a>
+                </div>
+                <!-- Toggle Bars -->
+                <div class="toggle-bars mybar">
+                    <div class="bars bar-1"></div>
+                    <div class="bars bar-2"></div>
+                    <div class="bars bar-3"></div>
+                </div>
+            </div>
+            <!-- Right Navigation -->
+            <nav class="site-nav flex left-nav align-item-center">
+                <ul class="flex">
+                    <li><a href="{% url 'index' %}"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="{% url 'ourvision' %}"><i class="far fa-eye"></i> Our Vision</a></li>
+                    <button class="btn" id="sign-modal" ><a href="{% url 'signin' %}">Log In</a></button>
+                    <button class="btn" id="signup-modal"><a href="{% url 'signup' %}">Sign Up</a></button>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <section class="prakat-ho-animation">
+        <img src="{% static 'assets/images/canteen phto.jpg' %}" loading="lazy" alt="Home Page Image">
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero my-2">
+        <main class="container-min grid grid-1 jc-ai-center">
+            <h1 class="clr-green lg text-center">Pocket Friendly Cafe</h1>
+            <article class="hero-article flex jc-ai-center">
+                <img src="{% static 'assets/images/NITLOGO2.png' %}" loading="lazy" alt="Home Canteen Image">
+                <div class="my-2 p-2">
+                    <h3 class="clr-red md">Asian Cuisines & Beverages</h3>
+                    <p>Each and every day we strive to better serve our community,
+                        customers with food that's fresh, tasty and healthy.
+                        Sumptuous delicious food baked in our cafe with curated
+                        ingredients and recipes</p>
+                    <p>Savour the creamy goodness of Champion Fruit Cream.
+                        We bet, there's the goodness of cream in every bite!</p>
+                    <div class="social-icons">
+                        <ul class="flex">
+                            <li><a href="https://www.youtube.com/@GraphicCafenitap" target="_blank"><i
+                                        class="fab fa-youtube fa-2x"></i></a></li>
+                            <li><a href="https://www.facebook.com/" target="_blank"><i
+                                        class="fab fa-facebook fa-2x"></i></a></li>
+                            <li><a href="https://www.instagram.com/" target="_blank"><i
+                                        class="fab fa-instagram fa-2x"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </main>
+    </section>
+
+    <hr>
+
+    <!-- Come & Dine Section -->
+    <section class="showcase my-3">
+        <main class="container-min grid-1 text-center jc-ai-center">
+            <!-- Heading & Slogan -->
+            <article>
+                <h1 class="lg">__ Come and Dine __</h1>
+                <h6 class="md">with the finest</h6>
+            </article>
+            <!-- Show Case Content -->
+            <article class="grid grid-3">
+                <div class="m-2">
+                    <h4 class="md">Fresh Daily</h4>
+                    <img src="{% static 'assets/images/waiter.svg' %}" loading="lazy" alt="">
+                    <p>Savour the creamy goodness of Champion Fruit Cream.
+                        We bet, there's the goodness of cream in every bite!</p>
+                </div>
+                <div class="m-2">
+                    <h4 class="md">Savoury & Creamy</h4>
+                    <img src="{% static 'assets/images/bbq.svg' %}" loading="lazy" alt="">
+                    <p>Sumptuous delicious food baked in our cafe with
+                        curated ingredients and recipes curated ingredients and recipes.</p>
+                </div>
+                <div class="m-2">
+                    <h4 class="md">Good Food</h4>
+                    <img src="{% static 'assets/images/burger.svg' %}" loading="lazy" alt="">
+                    <p>Each and every day we strive to better serve our
+                        community, customers with food that's fresh, tasty and healthy.</p>
+                </div>
+            </article>
+        </main>
+    </section>
+
+    <!-- Most Loved Dishes -->
+    <section class="dishes my-4">
+        <main class="container-min">
+            <h1 class="text-center lg p-1">Our Most Loved Dishes</h1>
+            <div class="flex jc-ai-center" id="best-dishes-container">
+                <script>var bestDishes = [
+                        {
+                            title: 'Panner biryani',
+                            rating: 5,
+                            imgURL: "{% static 'assets/images/paneer-biryani.jpg' %}",
+                            description: "Sumptuous delicious food baked in our cafe with curated ingredients",
+                            price: 130
+                        },
+                        {
+                            title: 'Chicken dum Biryani',
+                            rating: 5,
+                            imgURL: "{% static 'assets/images/paneer-biryani.jpg' %}",
+                            description: "Sumptuous delicious food baked in our cafe with curated ingredients",
+                            price: 150
+                        },
+                        {
+                            title: 'Mutton biryani',
+                            rating: 5,
+                            imgURL: "{% static 'assets/images/mutton-biryani.jpeg' %}",
+                            description: "Sumptuous delicious food baked in our cafe with curated ingredients",
+                            price: 250
+                        },
+                        {
+                            title: 'haleem',
+                            rating: 4,
+                            imgURL: "{% static 'assets/images/haleem.jpg' %}",
+                            description: "Sumptuous delicious food baked in our cafe with curated ingredients",
+                            price: 350
+                        }
+                    ]
+
+                    const bestDishesCont = document.querySelector('#best-dishes-container');
+                    function bestDishesHero() {
+                        bestDishes.forEach(index => {
+                            var div = document.createElement('div')
+                            div.innerHTML = `
+                            <a href="#" class="card text-center m-2">
+                                <h2>${index.title}</h2>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <img src="${index.imgURL}" loading="lazy" alt="Canteen Dishes">
+                                <p>${index.description}</p>
+                                <h3 class="md">&#8377; ${index.price}</h3>
+                            </a>
+                        `
+                            if (bestDishesCont) { bestDishesCont.appendChild(div) }
+                        })
+                    }
+                    bestDishesHero()
+                </script>
+            </div>
+        </main>
+    </section>
+    {% if success_message %}
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ success_message }}',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    {% endif %}
+    {% if failure_message %}
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Failure!',
+            text: '{{ failure_message }}',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    {% endif %}
+
+    <!-- Customers Footer -->
+    <footer class="customer-footer"><!-- Comes Through JS --></footer>
+
+
+    <!-- Creative Features -->
+    <script src="{% static 'assets/js/features.js' %}"></script>
+
+</body>
+
+</html>
