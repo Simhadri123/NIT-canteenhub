@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen Hub | Home</title>
+
+    <!-- Page Icon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/nitlogo.png' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/utilities.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animations.css' %}">
+
+
+    <!-- Sweet Alert Pop Modal -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+
+<body>
+    <div class="signup-modal">
+        <div class="modal-container">
+            <div class="modal-content">
+                <div class="md">Welcome to <br><span class="clr-red md">NIT AP</span> <span
+                        class="clr-green md">Canteen</span></div>
+            </div>
+            <!-- <ul class="modal-icons flex">
+                <li><button><i class="fab fa-google" id="google-signUpIn"></i></button></li>
+                <li><button><i class="fab fa-facebook" id="facebook-signUpIn"></i></button></li>
+            </ul> -->
+            <form class="modal-form grid py-1 text-center" method="POST" id="main-form">
+                {% csrf_token %}
+                <!-- <input type="text" placeholder="Full Name" name="full_name" required>
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="password" placeholder="Password" name="password" required>
+                <input type="password" placeholder="Re - Enter Password" name="re_password" required>-->
+                {{ form.as_p }}
+                <div>Mobile number:</div>
+                <input type="tel" name="mobile_number" required>
+                <button type="submit" class="btn">Register</button>
+            </form>
+            <label class="text-center">
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
+            <div class="modal-content m-content-2 py-1">
+                Click “Register” to agree to Terms of Service and acknowledge
+                that Privacy Policy applies to you. Have an account?
+                <a href="{% url 'signin' %}" class="clr-green">Log In</a>
+            </div>
+        </div>
+    </div>
+    {% if success_message %}
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ success_message }}',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    {% endif %}
+    {% if failure_message %}
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Failure!',
+            text: '{{ failure_message }}',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    {% endif %}
+
+
+</body>
+
+</html>

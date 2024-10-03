@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Page Icon -->
+        <link rel="icon" href="{% static 'assets/images/nitlogo.png' %}">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+            integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+            crossorigin="anonymous" />
+    
+        <!-- Style Sheets -->
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/utilities.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/animations.css' %}">
+    
+    
+        <!-- Sweet Alert Pop Modal -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+        <!-- NavBar -->
+        <header class="navbar">
+            <div class="container flex text-center jc-ai-center">
+                <!-- Left Navigation -->
+                <div class="site-title flex align-item-center">
+                    <div>
+                        <a href="{% url 'clientside' %}">
+                            <h1><span class="clr-red">NIT AP</span> <span class="clr-green">Canteen</span></h1>
+                        </a>
+                    </div>
+                    <!-- Toggle Bars -->
+                    <div class="toggle-bars mybar">
+                        <div class="bars bar-1"></div>
+                        <div class="bars bar-2"></div>
+                        <div class="bars bar-3"></div>
+                    </div>
+                </div>
+                <!-- Right Navigation -->
+                <nav class="site-nav flex left-nav align-item-center">
+                    <ul class="flex">
+                        <li><a href="{% url 'clientside' %}"><i class="fas fa-cocktail"></i> Menu</a></li>
+                        <li><a href="{% url 'userorders' %}"><i class="fas fa-coins"></i> Your Orders</a></li>
+                        <button class="btn" id="userlogout"><a href="{% url 'signout' %}">Log Out</button></a>
+                        <!-- Cart Icon -->
+                        <a class="flex" id="cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="profile-img">
+            <img src="{% static 'assets/images/user.png' %}" alt="Image Description" >
+        </div>
+    <div class="container">
+        <h1 style="font-size:xx-large; color:red">User Profile</h1>
+        <div>
+            <div >
+                <p ><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Mobile Number:</strong> {{ userinfo.mobile_number }}</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

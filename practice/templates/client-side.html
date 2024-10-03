@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen Hub | Menu</title>
+
+    <!-- Page Icon -->
+    <link rel="icon" href="{% static 'assets/images/nitlogo.png' %}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/utilities.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animations.css' %}">
+
+
+    <!-- Sweet Alert Pop Modal -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- NavBar -->
+    <header class="navbar">
+        <div class="container flex text-center jc-ai-center">
+            <!-- Left Navigation -->
+            <div class="site-title flex align-item-center">
+                <div>
+                    <a href="{% url 'clientside' %}">
+                        <h1><span class="clr-red">NIT AP</span> <span class="clr-green">Canteen</span></h1>
+                    </a>
+                </div>
+                <!-- Toggle Bars -->
+                <div class="toggle-bars mybar">
+                    <div class="bars bar-1"></div>
+                    <div class="bars bar-2"></div>
+                    <div class="bars bar-3"></div>
+                </div>
+            </div>
+            <!-- Right Navigation -->
+            <nav class="site-nav flex left-nav align-item-center">
+                <ul class="flex">
+                    <li><a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="{% url 'clientside' %}"><i class="fas fa-cocktail"></i> Menu</a></li>
+                    <li><a href="{% url 'userorders' %}"><i class="fas fa-coins"></i> Your Orders</a></li>
+                    <button class="btn" id="userlogout"><a href="{% url 'signout' %}">Log Out</button></a>
+                    <!-- Cart Icon -->
+                    <a class="flex" id="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p id="cart-values"></p>
+                    </a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Cart -->
+    <section class="cart-overlay">
+        <div class="cart-innerlay">
+            <!-- Upper Side -->
+            <header class="cart-title text-center md">
+                <div>Your Cart</div>
+                <div>
+                    <i class="fas fa-times" onclick="cartOverlay.classList.remove('show');
+                       cartInnerlay.classList.remove('showCart');">
+                    </i>
+                </div>
+            </header>
+            <!-- Cart Item Container -->
+            <div class="cart-items-container py-2">
+                <!-- Cart Items added to cart -->
+
+            </div>
+            <hr class="py-1">
+            <!-- Footer Side  -->
+            <div class="cart-footer text-center sm">
+                <div>Your Total : &#8377;<span class="cart-total-sum">0</span></div>
+                <div class="my-1">
+                    <button class="clear-cart">Clear Cart</button>
+                    <button class="check-out">Order Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Showcase -->
+    <!-- Hero -->
+    <section class="menu-hero">
+        <div class="banner">
+            <h1 class="banner-title lg">Our Menu</h1>
+        </div>
+    </section>
+
+    <!-- Menu -->
+    <section class="menu" style="margin-bottom: 5rem;">
+        <main class="container grid grid-1">
+            <!-- Title -->
+            <div class="title text-center">
+                <h2 class="lg my-2">Filter By Category</h2>
+                <!-- Filter Buttons -->
+                <div class="btn-container grid grid-4">
+                    <button class="filter-btn btn current" type="button" data-filter="all">All</button>
+                    <button class="filter-btn btn" type="button" data-filter="Burger">Burger</button>
+                    <button class="filter-btn btn" type="button" data-filter="Sandwich">Sandwich</button>
+                    <button class="filter-btn btn" type="button" data-filter="Fries">Fries</button>
+                    <button class="filter-btn btn fv" type="button" data-filter="Maggie">Maggie</button>
+                    <button class="filter-btn btn" type="button" data-filter="Beverages">Beverages</button>
+                    <button class="filter-btn btn" type="button" data-filter="Pasta">Pasta</button>
+                </div>
+                
+            </div>
+            <hr>
+            <!-- Menu Items -->
+            <div class="menu-section grid grid-3">
+                {% for item in menuItems %}
+                <article class="menu menu-item">
+                    <img src="{% static item.image_url %}" loading="lazy" alt="Product image">
+                    <div class="item-info">
+                        <figure>
+                            <h2>{{ item.title }}</h2>
+                            <div class="item-category">{{ item.category }}</div>
+                        </figure>
+                        <hr>
+                        <div class="menu-cart-functionality">
+                            <div class="price">&#8377;{{ item.price }}</div>
+                            <div class="cart-btn-container">
+                                <button class="bag-btn add-to-cart-btn" data-id="{{ item.item_id }}"
+                                    data-title="{{ item.title }}" data-category="{{ item.category }}"
+                                    data-price="{{ item.price }}" data-imageurl="{{ item.image_url }}">Add to
+                                    Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </main>
+    </section>
+    {% if success_message %}
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ success_message }}',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    {% endif %}
+
+    <!-- User Footer -->
+    <footer class=" customer-footer" id="user-footer" style="margin-top: 10rem;"><!-- Comes Through JS --></footer>
+
+                                        <!-- Menu & Admin Stuff -->
+                                        <script src="{% static 'assets/js/main.js' %}"></script>
+                                        <!-- Creative Features -->
+                                        <script src="{% static 'assets/js/features.js' %}"></script>
+
+
+
+
+</body>
+
+</html>

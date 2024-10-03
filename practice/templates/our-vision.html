@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen Hub | Our Vision</title>
+    
+    <!-- Page Icon -->
+    <link rel="icon" href="{% static 'assets/images/nitlogo.png' %}">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" 
+          integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" 
+          crossorigin="anonymous" />
+
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/utilities.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animations.css' %}">
+
+
+    <!-- Sweet Alert Pop Modal -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+    <!-- NavBar -->
+    <header class="navbar" id="preview-navbar">        <div class="container flex text-center jc-ai-center">
+            <!-- Left Navigation -->
+            <div class="site-title flex align-item-center">
+                <div>
+                    <a href="{% url 'index' %}"><h1><span class="clr-red">NIT AP</span> <span class="clr-green">Canteen</span></h1></a>
+                </div>
+                <!-- Toggle Bars -->
+                <div class="toggle-bars mybar">
+                    <div class="bars bar-1"></div>
+                    <div class="bars bar-2"></div>
+                    <div class="bars bar-3"></div>
+                </div>
+            </div>
+            <!-- Right Navigation -->
+            <nav class="site-nav flex left-nav align-item-center">                
+                <ul class="flex">
+                    <li><a href="{% url 'index' %}"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="{% url 'ourvision' %}"><i class="far fa-eye"></i> Our Vision</a></li>
+                    <button  class="btn" id="sign-modal" >Log In</button>
+                    <button  class="btn" id="signup-modal">Sign Up</button>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Main Image -->
+    <section class="main-img">
+        <div class="banner">
+            <h1 class="banner-title lg">Our Vision</h1>
+        </div>
+    </section>
+
+    <!-- Our History Section -->
+    <section class="our-history m-2">
+        <main class="container-min grid grid-1">
+            <!-- Heading -->
+            <div class="text-center">
+                <h1 class="lg">__ Our History __</h1>
+                <h3 class="md">FOUNDED IN 2019</h3>
+            </div>
+            <!-- Content -->
+            <div class="grid grid-2 md align-item-center">
+                <div class="m-3" id="history-content">
+                    <p class="p">National Institute of Technology Andhra Pradesh is committed to provide value
+                        based quality technical education and facilitis to the students 
+                        to boost there performance. Always continue the climb. It is 
+                        possible for you to do whatever you choose, if you first get 
+                        to know who you are and are willing to work with a power that 
+                        is greater than ourselves to do it.</p>
+                     <p class="p">Nothing can be done without hope and confidence. If you can 
+                         dream it, you can do it. Do it now, not tomorrow. Always continue the climb.</p>
+                </div>
+                <div class="p-3" id="history-img"><img src="{% static 'assets/images/history-img.jpg' %}" alt=""></div>
+            </div>
+        </main>
+    </section>
+
+    <hr>
+
+    <!-- Our Philosphy -->
+    <section class="our-philosphy my-3">
+        <main class="grid grid-1">
+            <!-- Heading -->
+            <div class="text-center">
+                <h1 class="lg">__ Our Philosphy __</h1>
+                <h3 class="md">YOU ARE WHAT YOU EAT</h3>
+            </div>
+            <!-- Content -->
+            <article class="grid grid-3 jc-ai-center">
+                <figure>
+                    <div><h4 class="md display-table">Asian Cusines</h4></div>
+                    <figcaption class="align-item-center">
+                        <img src="{% static 'assets/images/op-dishsvg.svg' %}" alt="">
+                        <p>Do not dwell in the past, do not dream of the future,
+                           concentrate the mind on the present moment.</p>
+                    </figcaption>
+                </figure>
+
+                <!-- Other figures here -->
+
+            </article>
+        </main>
+    </section>
+
+    <!-- What We Stand For Section -->
+    <section class="our-history m-3">
+        <main class="container-min grid grid-1">
+            <!-- Heading -->
+            <div class="text-center">
+                <h1 class="lg">What We Stand For?</h1>
+                <h3 class="md">OUR CORE VALUES</h3>
+            </div>
+            <!-- Content -->
+            <article class="grid grid-2 md align-item-center">
+                <div class="m-3" id="history-content">
+                    <div ><h4 class="display-table"><span class="clr-red sm">NIT AP </span><span class="clr-green sm"> Pocket Friendly Cafe</span></h4></div>
+                    <p>National Institute of Technology Andhra Pradesh is committed to provide value
+                        based quality technical education and facilitis to the students 
+                        to boost there performance. Always continue the climb. It is 
+                        possible for you to do whatever you choose, if you first get 
+                        to know who you are and are willing to work with a power that 
+                        is greater than ourselves to do it.</p>
+                    <p>Nothing can be done without hope and confidence. If you can 
+                        dream it, you can do it. Do it now, not tomorrow. Always continue the climb.</p>
+                </div>
+                <div class="p-3" id="history-img" ><img src="{% static 'assets/images/history-img.jpg' %}" alt=""></div>
+            </article>
+        </main>
+    </section>
+
+    <!-- Customers Footer -->
+    <footer class="customer-footer"><!-- Comes Through JS --></footer>
+
+    <!-- Creative Features -->
+    <script src="{% static 'assets/js/features.js' %}"></script>
+    
+</body>
+</html>

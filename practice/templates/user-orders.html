@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen Hub | Orders Status</title>
+
+    <!-- Page Icon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/nitlogo.png' %}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/utilities.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animations.css' %}">
+
+    <!-- Sweet Alert Pop Modal -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+    <!-- NavBar -->
+    <header class="navbar">
+        <div class="container flex text-center jc-ai-center">
+            <!-- Left Navigation -->
+            <div class="site-title flex align-item-center">
+                <div>
+                    <a href="{% url 'clientside' %}">
+                        <h1><span class="clr-red">Nit AP</span> <span class="clr-green">Canteen</span></h1>
+                    </a>
+                </div>
+                <!-- Toggle Bars -->
+                <div class="toggle-bars mybar">
+                    <div class="bars bar-1"></div>
+                    <div class="bars bar-2"></div>
+                    <div class="bars bar-3"></div>
+                </div>
+            </div>
+            <!-- Right Navigation -->
+            <nav class="site-nav flex left-nav align-item-center">
+                <ul class="flex">
+                    <li><a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="{% url 'clientside' %}"><i class="fas fa-cocktail"></i> Menu</a></li>
+                    <li><a href="{% url 'userorders' %}"><i class="fas fa-coins"></i> Your Orders</a></li>
+                    <button class="btn" id="userlogout"><a href="{% url 'signout' %}">Log Out</a></button>
+                    <!-- Cart Icon -->
+                    <a class="flex" id="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p id="cart-values">0</p>
+                    </a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
+    <!-- Cart -->
+    <section class="cart-overlay">
+        <div class="cart-innerlay">
+            <!-- Upper Side -->
+            <header class="cart-title text-center md">
+                <div>Your Cart</div>
+                <div>
+                    <i class="fas fa-times" onclick="cartOverlay.classList.remove('show');
+                       cartInnerlay.classList.remove('showCart');">
+                    </i>
+                </div>
+            </header>
+            <!-- Cart Item Container -->
+            <div class="cart-items-container py-2">
+                <!-- Cart Items added to cart -->
+            </div>
+            <hr class="py-1">
+            <!-- Footer Side  -->
+            <div class="cart-footer text-center sm">
+                <div>Your Total : &#8377;<span class="cart-total sm">0</span></div>
+                <div class="my-1">
+                    <button class="clear-cart">Clear Cart</button>
+                    <button class="check-out">Order Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="orders c-orders m-2">
+        <div class="order-inner container-min p-2">
+            <!-- heading -->
+            <main class="current-orders title" style="font-size: 1.7rem;">Current Order</main>
+            <!-- Show Latest Order -->
+            <div class="order-list">
+                {% if pending_orders %}
+                {% for pending_order in pending_orders %}
+                    {% with count|add:"-1" as order_count %}
+                        <h2>Order #{{ pending_order.order_id }}</h2>
+                        <hr>
+                        <p>Total Price: &#8377;{{ pending_order.total_price }}</p>
+                        <p>Ordered At: {{ pending_order.created_at }}</p>
+                        <div class="row">
+                            {% for order_item in pending_order.orderitem_set.all %}
+                                <div class="col-md-4">
+                                    <div class="card equal-card" style="width: 18rem;">
+                                        <img class="card-img-top" src="/static/{{ order_item.image_url }}" alt="Card image cap" height="100px" width="150px">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ order_item.title }}</h5>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Quantity: {{ order_item.quantity }}</li>
+                                            <li class="list-group-item">Total price:{{ order_item.price }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+                {% else %}
+                    <p>No current orders found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    
+    <section class="orders p-orders">
+        <div class="order-inner container-min p-2">
+            <!-- heading -->
+            <main class="previous-orders title" style="font-size: 1.7rem;">Order History</main>
+            <!-- Show Previous Orders -->
+            <div class="order-list">
+                {% if delivered_orders %}
+                {% for delivered_order in delivered_orders %}
+                    {% with count|add:"-1" as order_count %}
+                        <h2>Order #{{ delivered_order.order_id }}</h2>
+                        <hr>
+                        <p>Total Price: &#8377;{{ delivered_order.total_price }}</p>
+                        <p>Ordered At: {{ delivered_order.created_at }}</p>
+                        <div class="row">
+                            {% for order_item in delivered_order.orderitem_set.all %}
+                                <div class="col-md-4">
+                                    <div class="card equal-card" style="width: 18rem;">
+                                        <img class="card-img-top" src="/static/{{ order_item.image_url }}" alt="Card image cap" height="100px" width="150px">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ order_item.title }}</h5>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Quantity: {{ order_item.quantity }}</li>
+                                            <li class="list-group-item">Total price:{{ order_item.price }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+                {% else %}
+                    <p>No previous orders found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    
+    
+    {% if success_message %}
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ success_message }}',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    {% endif %}
+
+    <!-- User Footer -->
+    <footer class="customer-footer" id="user-footer" style="margin-top: 10rem;"><!-- Comes Through JS --></footer>
+
+    <!-- Creative Features -->
+    <script src="{% static 'assets/js/features.js' %}"></script>
+
+
+</body>
+
+</html>
